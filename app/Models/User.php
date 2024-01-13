@@ -8,10 +8,17 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable // implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    /*** Filament function to protect the access in prodaction
+     *  public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+    }
+     */
+    
     /**
      * The attributes that are mass assignable.
      *
