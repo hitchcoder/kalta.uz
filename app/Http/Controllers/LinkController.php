@@ -9,6 +9,7 @@ use App\Models\Link;
 use App\Models\Short;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LinkController extends Controller
 {
@@ -76,8 +77,11 @@ class LinkController extends Controller
      */
     public function show(Link $link)
     {
-        if(!empty($link->linkable()->first()->path)){
-
+        if(!empty($path = $link->linkable()->first()->path)){
+            $file = storage_path("app/public/$path");
+            if (Storage::disk('public')->exists("$path")) {
+                return response()->download($file, $link->linkable()->first()->name);
+            }
         }
         return redirect()->to($link->linkable()->first()->long_url);
     }
