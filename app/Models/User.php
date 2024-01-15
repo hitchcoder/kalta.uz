@@ -18,7 +18,7 @@ class User extends Authenticatable // implements FilamentUser
         return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
     }
      */
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -49,4 +49,8 @@ class User extends Authenticatable // implements FilamentUser
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function links(){
+        return $this->hasMany(Link::class);
+    }
 }
