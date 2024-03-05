@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('url')->unique();
             $table->string('desc')->nullable();
+            $table->string('name')->nullable()->default("unnamed link");
             $table->foreignId('user_id');
             $table->morphs('linkable');
             $table->string('ip');
