@@ -6,7 +6,7 @@ use App\Traits\NotGuarded;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Link extends Model
+class Kalta extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -15,7 +15,7 @@ class Link extends Model
         return 'url';
     }
 
-    public function linkable()
+    public function Kaltaable()
     {
         return $this->morphTo();
     }

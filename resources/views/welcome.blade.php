@@ -1,5 +1,6 @@
 <x-app-layout>
-    <body class="antialiased" >
+
+    <body class="antialiased">
         <div
             class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
             {{-- @if (Route::has('login'))
@@ -19,13 +20,12 @@
                     @endauth
                 </div>
             @endif --}}
-    
+
             <div class="kalta">
                 <div class="hiro">
                     <div class="site-hiro container">
                         <ul class="site-hiro__lit">
-    
-                            <form class="pe-auto" id="uploadForm" action="{{ route('links.store') }}" method="post"
+                            <form class="pe-auto" id="uploadForm" action="{{ route('kaltas.store') }}" method="POST"
                                 enctype="multipart/form-data" title="file upload">
                                 @csrf
                                 <li class="site-hiro__item pe-auto">
@@ -35,8 +35,7 @@
                                     <input type="file" id="file-input" name="file" style="display: none;">
                                 </li>
                             </form>
-    
-    
+
                             <li class="site-hiro__item" title="code snippet">
                                 <a href="#" class="site-hiro__link"><img src="./img/transparent.png"
                                         width="150" alt=""></a>
@@ -46,8 +45,8 @@
                                         alt=""></a>
                             </li>
                             <li class="site-hiro__item" title="create your website">
-                                <a href="{{route('bio.create')}}" class="site-hiro__link"><img src="./img/link_in_bio.png"
-                                        width="150" alt=""></a>
+                                <a href="{{ route('bio.create') }}" class="site-hiro__link"><img
+                                        src="./img/link_in_bio.png" width="150" alt=""></a>
                             </li>
                         </ul>
                     </div>
@@ -55,13 +54,13 @@
                 <div class="main">
                     <div class="site-main container">
                         <ul>
-                            @foreach ($links as $link)
-                                <li> <a target="_blank" href="{{ route('links.show', $link->url) }}">
-                                        {{ $link->linkable()->first()->long_url ?? $link->linkable()->first()->name }}</a>
+                            @foreach ($kaltas as $kalta)
+                                <li> <a target="_blank" href="{{ route('links.show', $kalta->url) }}">
+                                        {{ $kalta->kaltaable()->first()->long_url ?? $kalta->kaltaable()->first()->name }}</a>
                                 </li>
                             @endforeach
                         </ul>
-    
+
                     </div>
                 </div>
             </div>
@@ -75,12 +74,12 @@
                 });
             });
         </script>
-    
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
         </script>
         {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> --}}
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script> --}}
     </body>
-    
+
 </x-app-layout>

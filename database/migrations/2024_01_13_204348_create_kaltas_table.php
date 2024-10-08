@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('links', function (Blueprint $table) {
+        Schema::create('kaltas', function (Blueprint $table) {
             $table->id();
             $table->string('url')->unique();
             $table->string('desc')->nullable();
-            $table->string('name')->nullable()->default("unnamed link");
+            $table->string('name')->nullable()->default("unnamed kalta");
             $table->foreignId('user_id');
-            $table->morphs('linkable');
+            $table->morphs('kaltaable');
             $table->string('ip');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('kaltas');
     }
 };

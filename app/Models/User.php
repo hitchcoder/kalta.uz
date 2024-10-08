@@ -50,7 +50,7 @@ class User extends Authenticatable // implements FilamentUser
         'password' => 'hashed',
     ];
 
-    public function links(){
-        return $this->hasMany(Link::class);
+    public function kaltas(){
+        return $this->hasMany(Kalta::class);
     }
 }

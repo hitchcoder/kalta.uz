@@ -10,28 +10,22 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     @endpush
-
     <div class="bio-form">
         <div class="container"> <!-- open container -->
             <div class="row"> <!--  open row -->
-
                 <div id="form-header" class="col-12">
                     <h1 id="title">Link in bio form</h1>
                 </div>
             </div> <!--  close row -->
-
             <div class="row"> <!--  open row -->
                 <div id="form-tagline" class="col-md-4">
                     <div class="form-tagline">
                         <i class="fa fa-envelope fa-5x"></i>
-                        <div id="name-out"></div>
-                        <h2>How Are We Doing?</h2>
+                        <h1 id="name-out"></h1>
                         <p id="description" class="lead">We really value your opinion</p>
                     </div>
                 </div>
-
                 <div id="form-content" class="col-md-8">
-
                     <form action="{{ route('bio.store') }}" method="POST" id="survey-form"> <!-- open form -->
                         @csrf
                         <div class="avatar-upload">
@@ -48,7 +42,6 @@
                             <div class="col-sm-3">
                                 <label id="name-label" class="control-label" for="name">*Name:</label>
                             </div>
-
                             <div class="input-group col-sm-9">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon-name"><i
@@ -59,7 +52,6 @@
                             </div>
                         </div>
                         <hr>
-
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label class="control-label" for="comment">Comments:</label>
@@ -73,22 +65,17 @@
                                 <textarea class="form-control" rows="5" id="comment"></textarea>
                             </div>
                         </div>
-
                         <div class="form-group row">
                             <div class="col-sm-12 submit-button">
                                 <button type="submit" id="submit" class="btn btn-default" aria-pressed="true">Submit
                                     Form</button>
                             </div>
                         </div>
-
                     </form> <!-- close form -->
-
                 </div> <!-- close form content div -->
-
             </div> <!-- close row -->
         </div><!--  close container -->
     </div>
-
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -105,19 +92,12 @@
             console.log('test');
             readURL(this);
         });
-
         $(document).ready(function() {
             $('#name-input').on('input', function() {
                 var x = $(this).val();
                 console.log(x);
                 var log = document.getElementById('name-out');
                 log.textContent = x;
-            });
-
-            $("#survey-form").submit(function(event) {
-                event.preventDefault(); // Prevents the default form submission
-                alert("Thank You For Your Feedback");
-                document.getElementById("survey-form").reset();
             });
         });
     </script>

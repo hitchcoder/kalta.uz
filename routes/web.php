@@ -3,7 +3,7 @@
 use App\Http\Controllers\BioController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LinkController;
+use App\Http\Controllers\KaltaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,17 +31,17 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/', [LinkController::class, 'index'])->name('index');
+Route::get('/', [KaltaController::class, 'index'])->name('index');
 
 Route::get('/test', function(){
     return view('test');
 });
 
-Route::get('links/make', [LinkController::class, 'make'])->name('links.make');
+Route::get('kaltas/make', [KaltaController::class, 'make'])->name('kaltas.make');
 
 Route::resource('bio', BioController::class);
 
 
-Route::resource('links', LinkController::class);
+Route::resource('kaltas', KaltaController::class);
 
 require __DIR__.'/auth.php';
