@@ -2,7 +2,7 @@
 
     @push('styles')
         <link rel="stylesheet" href="{{ asset('css/bio.css') }}">
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"
             integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
             integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -12,11 +12,6 @@
     @endpush
     <div class="bio-form">
         <div class="container"> <!-- open container -->
-            <div class="row"> <!--  open row -->
-                <div id="form-header" class="col-12">
-                    <h1 id="title">Link in bio form</h1>
-                </div>
-            </div> <!--  close row -->
             <div class="row"> <!--  open row -->
                 <div id="form-tagline" class="col-md-4">
                     <div class="form-tagline">
@@ -33,13 +28,44 @@
                         </div>
                     </div>
                     <div class="row form-group">
-                        <div class="input-group col-sm-9">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon-name"><i class="fa fa-user"></i>
-                                    {{ $bio->title }}</span>
-                            </div>
-                        </div>
+                        <section class="bio mb-4 text-center">
+                            <p>
+                            <h1><i class="fa fa-user me-3"></i>{{ $bio->title }}</h1>
+                            </p>
+                            <p>{{ $bio->kalta()->first()->description }}</p>
+                        </section>
                     </div>
+                    @isset($bio->instagram)
+                        <a href="{{ asset($bio->instagram) }}"
+                            class="link-tab d-flex align-items-center p-3 mb-3 text-decoration-none text-dark bg-light border rounded">
+                            <i class="fab fa-instagram me-3" aria-hidden="true"></i>
+                            <span class="flex-grow-1 text-center">Instagram</span>
+                        </a>
+                    @endisset
+
+                    @isset($bio->telegram)
+                        <a href="{{ asset($bio->telegram) }}"
+                            class="link-tab d-flex align-items-center p-3 mb-3 text-decoration-none text-dark bg-light border rounded">
+                            <i class="fab fa-telegram me-3" aria-hidden="true"></i>
+                            <span class="flex-grow-1 text-center">Telegram</span>
+                        </a>
+                    @endisset
+
+                    @isset($bio->twitter)
+                        <a href="{{ asset($bio->twitter) }}"
+                            class="link-tab d-flex align-items-center p-3 mb-3 text-decoration-none text-dark bg-light border rounded">
+                            <i class="fab fa-twitter me-3" aria-hidden="true"></i>
+                            <span class="flex-grow-1 text-center">Twitter</span>
+                        </a>
+                    @endisset
+
+                    @isset($bio->blog)
+                        <a href="{{ asset($bio->blog) }}"
+                            class="link-tab d-flex align-items-center p-3 mb-3 text-decoration-none text-dark bg-light border rounded">
+                            <i class="fab fa-blogger me-3" aria-hidden="true"></i>
+                            <span class="flex-grow-1 text-center">Blog</span>
+                        </a>
+                    @endisset
                     <hr>
                 </div> <!-- close form content div -->
             </div> <!-- close row -->

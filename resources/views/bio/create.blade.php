@@ -34,7 +34,7 @@
                                 <input name="avatar_icon" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" alt="avatar_icon" />
                             </div>
                             <div class="avatar-preview">
-                                <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+                                <div id="imagePreview" style="background-image: url(https://steamuserimages-a.akamaihd.net/ugc/2432579570947109735/1FEECA503896F729624FD0C364A47FE2F3EACA57/?imw=512&amp;imh=512&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true);">
                                 </div>
                             </div>
                         </div>
@@ -48,21 +48,75 @@
                                             class="fa fa-user"></i></span>
                                 </div>
                                 <input id="name-input" type="text" class="form-control"
-                                    placeholder="Please Enter Your Title/Name" name="title" required>
+                                    placeholder="Enter Profile URL" name="title" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-1">
+                            <div class="col-sm-3">
+                                <label id="name-label" class="control-label" for="name">Instagram:</label>
+                            </div>
+                            <div class="input-group col-sm-9">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon-name"><i
+                                            class="fab fa-instagram"></i></span>
+                                </div>
+                                <input id="name-input" type="text" class="form-control"
+                                    placeholder="Enter Profile URL" name="instagram" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row form-group mb-1">
+                            <div class="col-sm-3">
+                                <label id="name-label" class="control-label" for="name">Telegram:</label>
+                            </div>
+                            <div class="input-group col-sm-9">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon-name"><i
+                                            class="fab fa-telegram"></i></span>
+                                </div>
+                                <input id="name-input" type="text" class="form-control"
+                                    placeholder="Enter Profile URL" name="telegram" required>
+                            </div>
+                        </div>
+
+                        <div class="row form-group mb-1">
+                            <div class="col-sm-3">
+                                <label id="name-label" class="control-label" for="name">Twitter:</label>
+                            </div>
+                            <div class="input-group col-sm-9">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon-name"><i
+                                            class="fab fa-twitter"></i></span>
+                                </div>
+                                <input id="name-input" type="text" class="form-control"
+                                    placeholder="Enter Profile URL" name="twitter" required>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-1">
+                            <div class="col-sm-3">
+                                <label id="name-label" class="control-label" for="name">Blog:</label>
+                            </div>
+                            <div class="input-group col-sm-9">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon-name"><i
+                                            class="fab fa-blogger"></i></span>
+                                </div>
+                                <input id="name-input" type="text" class="form-control"
+                                    placeholder="Your Blog URL" name="blog" required>
                             </div>
                         </div>
                         <hr>
                         <div class="form-group row">
                             <div class="col-sm-3">
-                                <label class="control-label" for="comment">Comments:</label>
+                                <label class="control-label" for="description">Description:</label>
                             </div>
-
                             <div class="input-group col-sm-9">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon-mail"><i
                                             class="fa fa-comment"></i></span>
                                 </div>
-                                <textarea class="form-control" rows="5" id="comment"></textarea>
+                                <textarea name="description" class="form-control" rows="5" id="description"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">

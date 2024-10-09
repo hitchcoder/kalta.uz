@@ -16,17 +16,12 @@ class BioController extends Controller
 
     public function store(StoreBioRequest $request)
     {
-        if (isset($request->avatar_icon)) {
-            $imageName = time() . '_' . $request->avatar_icon->getClientOriginalName();
-            $request->avatar_icon->move(public_path('images'), $imageName);
-            $storeImg = 'images/' . $imageName;
-        }
-
-        $bio = Bio::create([
-            'title' => $request->title,
-            'telegram' => $request->telegram,
-            'avatar_icon' => $storeImg
-        ]);
+        // if (isset($request->avatar_icon)) {
+        //     $imageName = time() . '_' . $request->avatar_icon->getClientOriginalName();
+        //     $request->avatar_icon->move(public_path('images'), $imageName);
+        //     $storeImg = 'images/' . $imageName;
+        // }
+        $bio = Bio::create($request->validated());
         $bio->kalta()->create([
             'url' => randomString(),
             'user_id' => Auth::id() ?? 1,
@@ -34,6 +29,7 @@ class BioController extends Controller
             'description' => $request->description ?? null,
             'name' => $request->title ?? null
         ]);
+        $bio->save();
         return redirect()->route('bio.show', $bio);
     }
 
