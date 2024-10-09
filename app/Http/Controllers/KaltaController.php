@@ -52,19 +52,6 @@ class KaltaController extends Controller
      */
     public function store(StoreKaltaRequest $request)
     {
-        // Store the file in the public storage folder
-        $path = $request->file('file')->store('uploads', 'public');
-        do {
-            $randomString = Str::random(5);
-        } while (Kalta::where('url', $randomString)->exists());
-        
-        $file = File::create(['path' => $path, 'name' => $request->file('file')->getClientOriginalName()]);
-        $file->kalta()->create([
-            'url' => $randomString,
-            'user_id' => 1,
-            'ip' => $request->ip()
-        ]);
-        return redirect()->back()->with('success', 'File uploaded successfully!');
     }
 
     /**

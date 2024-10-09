@@ -22,42 +22,11 @@
             @endif --}}
 
             <div class="kalta">
-                <div class="hiro">
-                    <div class="site-hiro container">
-                        <ul class="site-hiro__lit">
-                            <form class="pe-auto" id="uploadForm" action="{{ route('files.store') }}" method="POST"
-                                enctype="multipart/form-data" title="file upload">
-                                @csrf
-                                <li class="site-hiro__item pe-auto">
-                                    <label for="file-input" class="site-hiro__link">
-                                        <img class="pe-auto" src="./img/upload.png" width="150" alt="Upload Icon">
-                                    </label>
-                                    <input type="file" id="file-input" name="file" style="display: none;">
-                                </li>
-                            </form>
-
-                            <li class="site-hiro__item" title="code snippet">
-                                <a href="#" class="site-hiro__link"><img src="./img/transparent.png"
-                                        width="150" alt=""></a>
-                            </li>
-                            <li class="site-hiro__item" title="make qr code">
-                                <a href="#" class="site-hiro__link"><img src="./img/qr_code.png" width="150"
-                                        alt=""></a>
-                            </li>
-                            <li class="site-hiro__item" title="create your website">
-                                <a href="{{ route('bio.create') }}" class="site-hiro__link"><img
-                                        src="./img/link_in_bio.png" width="150" alt=""></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 <div class="main">
                     <div class="site-main container">
                         <ul>
-                            @foreach ($kaltas as $kalta)
-                                <li> <a target="_blank" href="{{ route('kaltas.show', $kalta->url) }}">
-                                        {{ $kalta->kaltaable()->first()->long_url ?? $kalta->kaltaable()->first()->name }}</a>
-                                </li>
+                            @foreach ($bios as $bio)
+                            <img src="{{asset($bio->avatar_icon)}}" alt="">
                             @endforeach
                         </ul>
 

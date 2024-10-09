@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('kaltas', function (Blueprint $table) {
             $table->id();
             $table->string('url')->unique();
-            $table->string('desc')->nullable();
+            $table->string('description')->nullable();
             $table->string('name')->nullable()->default("unnamed kalta");
             $table->foreignId('user_id');
             $table->morphs('kaltaable');

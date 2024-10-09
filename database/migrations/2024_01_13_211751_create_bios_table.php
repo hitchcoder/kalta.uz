@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
+        Schema::create('bios', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->string('telegram')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();

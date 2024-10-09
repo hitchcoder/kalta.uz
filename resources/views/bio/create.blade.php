@@ -26,12 +26,12 @@
                     </div>
                 </div>
                 <div id="form-content" class="col-md-8">
-                    <form action="{{ route('bio.store') }}" method="POST" id="survey-form"> <!-- open form -->
+                    <form action="{{ route('bio.store') }}" method="POST" id="survey-form" enctype="multipart/form-data"> <!-- open form -->
                         @csrf
                         <div class="avatar-upload">
                             <div class="avatar-edit">
                                 <label for="imageUpload"></label>
-                                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                                <input name="avatar_icon" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" alt="avatar_icon" />
                             </div>
                             <div class="avatar-preview">
                                 <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="row form-group">
                             <div class="col-sm-3">
-                                <label id="name-label" class="control-label" for="name">*Name:</label>
+                                <label id="name-label" class="control-label" for="name">*Title:</label>
                             </div>
                             <div class="input-group col-sm-9">
                                 <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                                             class="fa fa-user"></i></span>
                                 </div>
                                 <input id="name-input" type="text" class="form-control"
-                                    placeholder="Please Enter Your Name" name="name" required>
+                                    placeholder="Please Enter Your Title/Name" name="title" required>
                             </div>
                         </div>
                         <hr>

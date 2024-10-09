@@ -3,9 +3,10 @@
 use App\Models\Kalta;
 use Illuminate\Support\Str;
 
-function randomString() : string {
+function randomString(): string
+{
     do {
-        $randomString = Str::random(5);
+        $randomString = Str::upper(Str::random(5));
     } while (Kalta::where('url', $randomString)->exists());
 
     return $randomString;

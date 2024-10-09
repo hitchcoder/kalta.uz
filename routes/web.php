@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BioController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaltaController;
@@ -41,7 +42,9 @@ Route::get('kaltas/make', [KaltaController::class, 'make'])->name('kaltas.make')
 
 Route::resource('bio', BioController::class);
 
+Route::get('{kalta}', [KaltaController::class, 'show'])->name('kaltas.show');
+Route::resource('kaltas', KaltaController::class)->except('show');
+Route::resource('files', FileController::class);
 
-Route::resource('kaltas', KaltaController::class);
 
 require __DIR__.'/auth.php';
