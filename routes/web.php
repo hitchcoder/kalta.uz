@@ -5,6 +5,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaltaController;
+use App\Http\Controllers\ShortController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,7 @@ Route::get('/test', function(){
     return view('test');
 });
 
-Route::get('kaltas/make', [KaltaController::class, 'make'])->name('kaltas.make');
+Route::post('kaltas/make', [ShortController::class, 'make'])->name('shorts.make');
 
 Route::resource('bio', BioController::class);
 

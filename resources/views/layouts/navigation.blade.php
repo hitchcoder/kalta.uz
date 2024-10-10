@@ -109,22 +109,35 @@
         </div>
     </div>
 </nav> --}}
-
+@push('styles')
+    <script>
+        function openUrl(event) {
+            event.preventDefault(); // Prevent default form submission
+            const url = document.getElementById('url').value; // Get the URL from the input
+            alert('ok');
+            console.log('ok');
+            if (url) {
+                window.open(url, '_blank'); // Open the URL in a new tab
+            } else {
+                alert('Please enter a valid URL.'); // Optional: Alert if the URL is empty
+            }
+        }
+    </script>
+@endpush
 <nav class="header navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
     <div class="container-fluid">
         <a href="#" class="site-header__logo navbar-brand">
             <h2 class="logo text-light">Kalta<samp class="logo-color">.UZ</samp></h2>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false"
-            aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03"
+            aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarsExample03">
             <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{route('index')}}">Dashboard</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Dashboard</a>
                 </li>
                 {{-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
@@ -135,9 +148,10 @@
                     </ul>
                 </li> --}}
             </ul>
-            <form>
-                <input class="form-control " type="text" placeholder="URLni qisqartirish"
-                    aria-label="Search">
+            <form method="POST" action="{{ route('shorts.make') }}">
+                @csrf
+                <input id="url" name="url" class="form-control " type="text"
+                    placeholder="URLni qisqartirish">
             </form>
             <ul class="navbar-nav mb-2 mb-sm-0">
                 <li class="nav-item site-header__item">

@@ -56,11 +56,10 @@
                         <ul>
                             @foreach ($kaltas as $kalta)
                                 <li> <a target="_blank" href="{{ route('kaltas.show', $kalta->url) }}">
-                                        {{ $kalta->kaltaable()->first()->long_url ?? $kalta->kaltaable()->first()->name }}</a>
+                                        {{ $kalta->kaltaable()->first()->long_url ?? $kalta->kaltaable()->first()->name ?? $kalta->url}}</a>
                                 </li>
                             @endforeach
-                        </ul>
-
+                        </ul>   
                     </div>
                 </div>
             </div>

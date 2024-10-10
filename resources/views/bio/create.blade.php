@@ -62,7 +62,7 @@
                                             class="fab fa-instagram"></i></span>
                                 </div>
                                 <input id="name-input" type="text" class="form-control"
-                                    placeholder="Enter Profile URL" name="instagram" required>
+                                    placeholder="Enter Profile URL" name="instagram">
                             </div>
                         </div>
                         
@@ -76,7 +76,7 @@
                                             class="fab fa-telegram"></i></span>
                                 </div>
                                 <input id="name-input" type="text" class="form-control"
-                                    placeholder="Enter Profile URL" name="telegram" required>
+                                    placeholder="Enter Profile URL" name="telegram">
                             </div>
                         </div>
 
@@ -90,7 +90,7 @@
                                             class="fab fa-twitter"></i></span>
                                 </div>
                                 <input id="name-input" type="text" class="form-control"
-                                    placeholder="Enter Profile URL" name="twitter" required>
+                                    placeholder="Enter Profile URL" name="twitter">
                             </div>
                         </div>
                         <div class="row form-group mb-1">
@@ -103,7 +103,7 @@
                                             class="fab fa-blogger"></i></span>
                                 </div>
                                 <input id="name-input" type="text" class="form-control"
-                                    placeholder="Your Blog URL" name="blog" required>
+                                    placeholder="Your Blog URL" name="blog">
                             </div>
                         </div>
                         <hr>
