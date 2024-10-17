@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->string('highlight')->default('txt'); //programming language
+            $table->string('content');
+            $table->string('visibility')->default('public');
+            $table->string('prog_lang')->default('txt'); //programming language
+            $table->dateTime('expiration')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

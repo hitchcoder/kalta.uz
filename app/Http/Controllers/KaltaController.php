@@ -4,38 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreKaltaRequest;
 use App\Http\Requests\UpdateKaltaRequest;
-use App\Models\File;
+use App\Models\Bio;
 use App\Models\Kalta;
 use App\Models\Short;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class KaltaController extends Controller
 {
-
-    public function make(Request $request)
-    {
-        $url = $request->url;
-
-        // if url is valid then create a short url
-        if (filter_var($url, FILTER_VALIDATE_URL)) {
-            $randomString = randomString();
-            $short = Short::create(['long_url' => $url]);
-            $short->kalta()->create([
-                'url' => $randomString,
-                'user_id' => 1,
-                'ip' => $request->ip()
-            ]);
-            return redirect()->back();
-        }
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $kaltas = Kalta::all();
+        $kaltas = Kalta::orderBy('created_at', 'desc')->get();
         return view('welcome', compact('kaltas'));
     }
 
@@ -50,35 +31,25 @@ class KaltaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKaltaRequest $request)
-    {
-        // Store the file in the public storage folder
-        $path = $request->file('file')->store('uploads', 'public');
-        do {
-            $randomString = Str::random(5);
-        } while (Kalta::where('url', $randomString)->exists());
-        
-        $file = File::create(['path' => $path, 'name' => $request->file('file')->getClientOriginalName()]);
-        $file->kalta()->create([
-            'url' => $randomString,
-            'user_id' => 1,
-            'ip' => $request->ip()
-        ]);
-        return redirect()->back()->with('success', 'File uploaded successfully!');
-    }
+    public function store(StoreKaltaRequest $request) {}
 
     /**
      * Display the specified resource.
      */
     public function show(Kalta $kalta)
     {
-        if(!empty($path = $kalta->kaltaable()->first()->path)){
+        if ($kalta->kaltaable()->first() instanceof Short) {
+            return redirect()->to($kalta->kaltaable()->first()->long_url);
+        } else if (!empty($path = $kalta->kaltaable()->first()->path)) {
             $file = storage_path("app/public/$path");
             if (Storage::disk('public')->exists("$path")) {
                 return response()->download($file, $kalta->kaltaable()->first()->name);
             }
+        } else if ($kalta->kaltaable()->first() instanceof Bio) {
+            $bio = $kalta->kaltaable()->first();
+            return view("bio.show", compact('bio'));
         }
-        return redirect()->to($kalta->kaltaable()->first()->long_url);
+        dd($kalta->kaltaable()->first instanceof Bio);
     }
 
     /**

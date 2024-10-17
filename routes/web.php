@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\BioController;
+use App\Http\Controllers\CodeController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KaltaController;
+use App\Http\Controllers\ShortController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +40,14 @@ Route::get('/test', function(){
     return view('test');
 });
 
-Route::get('kaltas/make', [KaltaController::class, 'make'])->name('kaltas.make');
+Route::post('kaltas/make', [ShortController::class, 'make'])->name('shorts.make');
 
 Route::resource('bio', BioController::class);
 
+Route::get('{kalta}', [KaltaController::class, 'show'])->name('kaltas.show');
+Route::resource('kaltas', KaltaController::class)->except('show');
+Route::resource('files', FileController::class);
+Route::resource('codes', CodeController::class);
 
-Route::resource('kaltas', KaltaController::class);
 
-require __DIR__.'/auth.php';
+require_once __DIR__.'/auth.php';
