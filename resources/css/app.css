@@ -1,3 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+.bg-primary {
+  @apply bg-blue-500;
+}
+
+.text-primary {
+  @apply text-white;
+}
+
+.btn {
+  @apply bg-primary text-white font-bold py-2 px-4 rounded;
+}
+
+.card {
+  @apply bg-white shadow-md rounded-lg overflow-hidden;
+}
+
+.card-header {
+  @apply bg-primary text-white font-bold text-lg p-4;
+}
+
+.card-body {
+  @apply p-4;
+}
+
+.card-footer {
+  @apply bg-gray-100 p-4;
+}
