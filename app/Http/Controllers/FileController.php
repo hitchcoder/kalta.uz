@@ -24,7 +24,7 @@ class FileController extends Controller
         $file = File::create(['path' => $path, 'name' => $request->file('file')->getClientOriginalName()]);
         $file->kalta()->create([
             'url' => randomString(),
-            'user_id' => 1,
+            'user_id' => auth()->id() ?? 1,
             'ip' => $request->ip()
         ]);
         return redirect()->back()->with('success', 'File uploaded successfully!');

@@ -19,12 +19,9 @@ use App\Http\Controllers\ShortController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $kaltas = auth()->user()->kaltas()->with('kaltaable')->latest()->get();
+    return view('dashboard', compact('kaltas'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

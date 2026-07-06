@@ -16,7 +16,7 @@ class ShortController extends Controller
             $short = Short::create(['long_url' => $url]);
             $short->kalta()->create([
                 'url' => $randomString,
-                'user_id' => 1,
+                'user_id' => auth()->id() ?? 1,
                 'ip' => $request->ip()
             ]);
 
