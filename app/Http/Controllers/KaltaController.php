@@ -38,18 +38,21 @@ class KaltaController extends Controller
      */
     public function show(Kalta $kalta)
     {
-        if ($kalta->kaltaable()->first() instanceof Short) {
-            return redirect()->to($kalta->kaltaable()->first()->long_url);
-        } else if (!empty($path = $kalta->kaltaable()->first()->path)) {
-            $file = storage_path("app/public/$path");
-            if (Storage::disk('public')->exists("$path")) {
-                return response()->download($file, $kalta->kaltaable()->first()->name);
+        $kaltaable = $kalta->kaltaable()->first();
+
+        if ($kaltaable instanceof Short) {
+            return redirect()->to($kaltaable->long_url);
+        } else if (!empty($kaltaable->path ?? null)) {
+            $file = storage_path("app/public/{$kaltaable->path}");
+            if (Storage::disk('public')->exists($kaltaable->path)) {
+                return response()->download($file, $kaltaable->name);
             }
-        } else if ($kalta->kaltaable()->first() instanceof Bio) {
-            $bio = $kalta->kaltaable()->first();
+        } else if ($kaltaable instanceof Bio) {
+            $bio = $kaltaable;
             return view("bio.show", compact('bio'));
         }
-        dd($kalta->kaltaable()->first instanceof Bio);
+
+        abort(404);
     }
 
     /**
