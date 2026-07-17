@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreKaltaRequest;
+use App\Http\Requests\StoreFileRequest;
 use App\Http\Requests\UpdateKaltaRequest;
 use App\Models\File;
 use App\Models\Kalta;
@@ -16,7 +16,7 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreKaltaRequest $request)
+    public function store(StoreFileRequest $request)
     {
         // Store the file in the public storage folder
         $path = $request->file('file')->store('uploads', 'public');
