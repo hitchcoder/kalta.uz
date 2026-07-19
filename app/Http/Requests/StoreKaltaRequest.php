@@ -22,7 +22,12 @@ class StoreKaltaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => 'required'
+            'file' => [
+                'required',
+                'file',
+                'max:20480',
+                'mimes:jpg,jpeg,png,gif,webp,svg,pdf,doc,docx,xls,xlsx,ppt,pptx,txt,csv,zip,rar,mp3,mp4,mov,avi,json',
+            ],
         ];
     }
 }

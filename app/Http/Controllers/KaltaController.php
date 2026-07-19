@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreKaltaRequest;
 use App\Http\Requests\UpdateKaltaRequest;
 use App\Models\Bio;
+use App\Models\File;
 use App\Models\Kalta;
 use App\Models\Short;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class KaltaController extends Controller
@@ -16,7 +18,7 @@ class KaltaController extends Controller
      */
     public function index()
     {
-        $kaltas = Kalta::orderBy('created_at', 'desc')->get();
+        $kaltas = Kalta::with('kaltaable')->orderBy('created_at', 'desc')->get();
         return view('welcome', compact('kaltas'));
     }
 
@@ -38,18 +40,27 @@ class KaltaController extends Controller
      */
     public function show(Kalta $kalta)
     {
-        if ($kalta->kaltaable()->first() instanceof Short) {
-            return redirect()->to($kalta->kaltaable()->first()->long_url);
-        } else if (!empty($path = $kalta->kaltaable()->first()->path)) {
-            $file = storage_path("app/public/$path");
-            if (Storage::disk('public')->exists("$path")) {
-                return response()->download($file, $kalta->kaltaable()->first()->name);
-            }
-        } else if ($kalta->kaltaable()->first() instanceof Bio) {
-            $bio = $kalta->kaltaable()->first();
-            return view("bio.show", compact('bio'));
+        $kaltaable = $kalta->kaltaable;
+
+        if ($kaltaable instanceof Short) {
+            return redirect()->to($kaltaable->long_url);
         }
-        dd($kalta->kaltaable()->first instanceof Bio);
+
+        if ($kaltaable instanceof File) {
+            if ($kaltaable->path && Storage::disk('public')->exists($kaltaable->path)) {
+                return response()->download(storage_path("app/public/{$kaltaable->path}"), $kaltaable->name);
+            }
+
+            Log::warning('Kalta file missing from storage.', ['kalta_id' => $kalta->id, 'path' => $kaltaable->path]);
+            abort(404);
+        }
+
+        if ($kaltaable instanceof Bio) {
+            return view('bio.show', ['bio' => $kaltaable]);
+        }
+
+        Log::warning('Kalta has no resolvable resource.', ['kalta_id' => $kalta->id]);
+        abort(404);
     }
 
     /**

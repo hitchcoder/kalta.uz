@@ -18,10 +18,13 @@ class FileController extends Controller
      */
     public function store(StoreKaltaRequest $request)
     {
-        // Store the file in the public storage folder
-        $path = $request->file('file')->store('uploads', 'public');
-        
-        $file = File::create(['path' => $path, 'name' => $request->file('file')->getClientOriginalName()]);
+        $uploaded = $request->file('file');
+
+        // Store the file under a randomly generated name; the original name is only used for display/download.
+        $path = $uploaded->store('uploads', 'public');
+        $originalName = Str::limit(basename($uploaded->getClientOriginalName()), 180, '');
+
+        $file = File::create(['path' => $path, 'name' => $originalName]);
         $file->kalta()->create([
             'url' => randomString(),
             'user_id' => 1,
