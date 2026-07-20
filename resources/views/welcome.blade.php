@@ -54,8 +54,8 @@
                     <div class="site-main container">
                         <ul>
                             @foreach ($kaltas as $kalta)
-                                <li> <a target="_blank" href="{{ route('kaltas.show', $kalta->url) }}">
-                                        {{ $kalta->kaltaable()->first()->long_url ?? $kalta->kaltaable()->first()->name ?? $kalta->url}}</a>
+                                <li> <a target="_blank" href="{{ route('kaltas.show', $kalta) }}">
+                                        {{ $kalta->display_name }}</a>
                                 </li>
                             @endforeach
                         </ul>   
