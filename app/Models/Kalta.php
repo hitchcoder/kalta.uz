@@ -22,4 +22,11 @@ class Kalta extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function getDisplayNameAttribute()
+    {
+        $related = $this->kaltaable;
+
+        return $related->long_url ?? $related->name ?? $this->url;
+    }
 }
