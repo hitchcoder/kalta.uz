@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreKaltaRequest;
 use App\Http\Requests\UpdateKaltaRequest;
 use App\Models\Bio;
+use App\Models\File;
 use App\Models\Kalta;
 use App\Models\Short;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class KaltaController extends Controller
 {
@@ -16,7 +19,7 @@ class KaltaController extends Controller
      */
     public function index()
     {
-        $kaltas = Kalta::orderBy('created_at', 'desc')->get();
+        $kaltas = Kalta::with('kaltaable')->orderBy('created_at', 'desc')->get();
         return view('welcome', compact('kaltas'));
     }
 
@@ -38,18 +41,35 @@ class KaltaController extends Controller
      */
     public function show(Kalta $kalta)
     {
-        if ($kalta->kaltaable()->first() instanceof Short) {
-            return redirect()->to($kalta->kaltaable()->first()->long_url);
-        } else if (!empty($path = $kalta->kaltaable()->first()->path)) {
-            $file = storage_path("app/public/$path");
-            if (Storage::disk('public')->exists("$path")) {
-                return response()->download($file, $kalta->kaltaable()->first()->name);
+        try {
+            $kaltaable = $kalta->kaltaable;
+
+            if ($kaltaable instanceof Short) {
+                return redirect()->to($kaltaable->long_url);
             }
-        } else if ($kalta->kaltaable()->first() instanceof Bio) {
-            $bio = $kalta->kaltaable()->first();
-            return view("bio.show", compact('bio'));
+
+            if ($kaltaable instanceof File && !empty($path = $kaltaable->path)) {
+                $file = storage_path("app/public/$path");
+                if (Storage::disk('public')->exists($path)) {
+                    return response()->download($file, $kaltaable->name);
+                }
+            }
+
+            if ($kaltaable instanceof Bio) {
+                $bio = $kaltaable;
+                return view("bio.show", compact('bio'));
+            }
+
+            abort(404);
+        } catch (HttpExceptionInterface $e) {
+            throw $e;
+        } catch (\Throwable $e) {
+            Log::error('Failed to resolve kalta resource', [
+                'url' => $kalta->url ?? null,
+                'exception' => $e->getMessage(),
+            ]);
+            abort(404);
         }
-        dd($kalta->kaltaable()->first instanceof Bio);
     }
 
     /**

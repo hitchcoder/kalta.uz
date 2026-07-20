@@ -20,8 +20,11 @@ class FileController extends Controller
     {
         // Store the file in the public storage folder
         $path = $request->file('file')->store('uploads', 'public');
-        
-        $file = File::create(['path' => $path, 'name' => $request->file('file')->getClientOriginalName()]);
+
+        $originalName = str_replace(["\0", "\r", "\n"], '', $request->file('file')->getClientOriginalName());
+        $originalName = Str::limit($originalName, 255, '');
+
+        $file = File::create(['path' => $path, 'name' => $originalName]);
         $file->kalta()->create([
             'url' => randomString(),
             'user_id' => 1,

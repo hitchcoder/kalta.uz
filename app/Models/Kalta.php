@@ -22,4 +22,16 @@ class Kalta extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Human-readable label for this kalta, based on the underlying resource type.
+     */
+    public function getDisplayNameAttribute(): string
+    {
+        $kaltaable = $this->kaltaable;
+
+        return $kaltaable->long_url
+            ?? $kaltaable->name
+            ?? $this->url;
+    }
 }
