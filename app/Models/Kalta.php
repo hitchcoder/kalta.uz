@@ -10,6 +10,8 @@ class Kalta extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $appends = ['display_name'];
+
     public function getRouteKeyName()
     {
         return 'url';
@@ -21,5 +23,12 @@ class Kalta extends Model
     }
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    public function getDisplayNameAttribute(): string
+    {
+        $target = $this->kaltaable;
+
+        return $target?->long_url ?? $target?->name ?? $this->url;
     }
 }
